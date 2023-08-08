@@ -1,0 +1,29 @@
+.digest-settings {
+	overflow-y: scroll;
+	height: 100vh;
+}
+
+.digest-settings-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: left;
+	padding: 100px 350px;
+	gap: 50px;
+}
+
+.digest-settings-container .button-wrapper input[type="submit"] {
+	border: 2px solid black;
+	color: black;
+	padding: 10px 20px;
+	border-radius: 5px;
+	cursor: pointer;
+	font-family: "GT Alpina", serif;
+	font-size: 20px;
+	background-color: var(--almost-white);
+}
+
+.digest-settings-container .button-container {
+	display: flex;
+	gap: 30px;
+}

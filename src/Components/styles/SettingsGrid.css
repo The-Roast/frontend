@@ -1,0 +1,65 @@
+.settings-grid {
+	width: 100%;
+	border-collapse: collapse;
+	table-layout: fixed;
+	box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.settings-grid th,
+.settings-grid td {
+	border: 2px solid black;
+	padding: 8px;
+	text-align: left;
+}
+
+.settings-grid th {
+	background-color: #d9d9d9;
+	font-family: "Futura", sans-serif;
+	font-weight: 500;
+	font-size: 40px;
+	text-transform: uppercase;
+}
+
+.settings-grid .data-row {
+	background-color: #fcf9e1;
+	height: 50px;
+}
+
+.settings-grid .data-row td {
+	font-size: 25px;
+}
+
+.settings-grid .data-row td input {
+	font-family: "GT Alpina";
+	font-size: 25px;
+	background: none;
+	border: none;
+	outline: none;
+}
+
+.settings-grid .filler-cell {
+	width: 50px;
+	height: 50px;
+	position: relative;
+}
+
+.settings-grid .filler-cell::before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
+	background-color: #000;
+	transform: translate(-50%, -50%);
+}
+
+.settings-grid thead .filler-cell::before {
+	display: none;
+}
+
+.color-picker {
+	display: flex;
+}

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useWhisper } from "@chengsokdara/use-whisper";
-import "./styles/Conversation.css";
+import "./styles/Newsletter.css";
 import XI_API_KEY from "../Config";
 import { useLocation } from "react-router-dom";
 import moebius1 from "./images/moebius1.png";

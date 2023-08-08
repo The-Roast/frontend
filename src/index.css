@@ -18,15 +18,15 @@
 	font-family: "GT Alpina";
 	src: url("fonts/GT-Alpina/GT-Alpina-Standard-Light-Italic-Trial.otf")
 		format("opentype");
-	font-weight: lighter;
+	font-weight: 300;
 	font-style: italic;
 }
 
 @font-face {
-	font-family: "GT Alpina Lighter";
+	font-family: "GT Alpina";
 	src: url("fonts/GT-Alpina/GT-Alpina-Standard-Light-Trial.otf")
 		format("opentype");
-	font-weight: lighter;
+	font-weight: 300;
 	font-style: normal;
 }
 
@@ -82,7 +82,7 @@
 	font-family: "GT Alpina Condensed";
 	src: url("fonts/GT-Alpina/GT-Alpina-Condensed-Light-Italic-Trial.otf")
 		format("opentype");
-	font-weight: lighter;
+	font-weight: 300;
 	font-style: italic;
 }
 
@@ -90,7 +90,7 @@
 	font-family: "GT Alpina Condensed";
 	src: url("fonts/GT-Alpina/GT-Alpina-Condensed-Light-Trial.otf")
 		format("opentype");
-	font-weight: lighter;
+	font-weight: 300;
 	font-style: normal;
 }
 
@@ -298,10 +298,18 @@
 	font-style: normal;
 }
 
+:root {
+	--pistachio-green: #dee3c6;
+	--sand-beige: #fcf9e1;
+	--grayed-out: #808080;
+	--almost-white: #fefbf0;
+	--light-grey: #d3d3d3;
+}
+
 body {
 	margin: 0;
 	font-family: "GT Alpina";
-	background-color: #dee3c6;
+	background-color: var(--pistachio-green);
 }
 
 code {

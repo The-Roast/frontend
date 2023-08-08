@@ -1,15 +1,12 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState } from "react";
 import "./styles/Signup.css";
 import { NavLink, useNavigate } from "react-router-dom";
+import { encodeURL, simpleCrypto, BACKEND_URL } from "../HTTP";
 
 function Signup() {
 	const [first_name, setfirst_name] = useState("");
 	const [last_name, setlast_name] = useState("");
 	const [email, setEmail] = useState("");
-	const [interests, setInterests] = useState("");
-	const [sources, setsources] = useState("");
-	const [personality, setPersonality] = useState("");
-	const [digest_name, setdigest_name] = useState("");
 	const [password, setPassword] = useState("");
 	const [confirm_password, setConfirmPassword] = useState("");
 	const [warningMessage, setWarningMessage] = useState("");
@@ -18,11 +15,11 @@ function Signup() {
 	const [isMismatchedPassword, setIsMismatchedPassword] = useState(false);
 	const navigate = useNavigate();
 
-	const handlefirst_nameChange = (e) => {
+	const handleFirstNameChange = (e) => {
 		setfirst_name(e.target.value);
 	};
 
-	const handlelast_nameChange = (e) => {
+	const handleLastNameChange = (e) => {
 		setlast_name(e.target.value);
 	};
 
@@ -31,201 +28,149 @@ function Signup() {
 	};
 
 	const handlePasswordChange = (e) => {
+		setIsMismatchedPassword(false);
 		setPassword(e.target.value);
 	};
 
 	const handleConfirmPasswordChange = (e) => {
+		setIsMismatchedPassword(false);
 		setConfirmPassword(e.target.value);
 	};
 
-	const handleInterestsChange = (e) => {
-		setInterests(e.target.value);
-	};
-
-	const handlesourcesChange = (e) => {
-		setsources(e.target.value);
-	};
-
-	const handlePersonalityChange = (e) => {
-		setPersonality(e.target.value);
-	};
-
-	const handleDigestNameChange = (e) => {
-		setdigest_name(e.target.value);
-	};
-
-	const handleSubmit = (event) => {
+	const handleSubmit = async (event) => {
 		event.preventDefault();
 		if (password !== confirm_password) {
 			setIsMismatchedPassword(true);
 			return;
 		}
-		const formData = {
-			first_name,
-			last_name,
-			email,
-			interests: interests,
-			sources: sources,
-			personality: personality,
-			digest_name: digest_name,
+		const registerBody = {
+			first_name: first_name,
+			last_name: last_name,
+			email: email,
 			password: password,
 		};
 
 		// Send the form data to the server for further processing
-		fetch("http://127.0.0.1:5000/signup", {
-			method: "POST",
-			headers: {
-				Accept: "application/json",
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify(formData),
-		})
-			.then((response) => response.json())
-			.then((response) => {
-				if (response.status == 404) {
-					setWarningMessage("Use a different email.");
+		try {
+			const registerRes = await fetch(`${BACKEND_URL}/auth/register`, {
+				method: "POST",
+				headers: {
+					Accept: "application/json",
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(registerBody),
+			});
+
+			const registerData = await registerRes.json();
+
+			if (!registerRes.ok) {
+				console.error(registerRes.status);
+				setWarningMessage(registerData.detail);
+				setIsWarningMessage(true);
+			} else {
+				const loginBody = {
+					email,
+					password,
+				};
+
+				const loginRes = await fetch(`${BACKEND_URL}/auth/login/access-token`, {
+					method: "POST",
+					headers: {
+						Accept: "application/json",
+						"Content-Type": "application/json",
+					},
+					body: encodeURL(loginBody),
+				});
+				const loginData = await loginRes.json();
+				if (!loginRes.ok) {
+					console.error(loginRes.status);
+					setWarningMessage(loginData.detail);
 					setIsWarningMessage(true);
 				} else {
-					fetch("http://127.0.0.1:5000/login", {
-						method: "POST",
-						headers: {
-							Accept: "application/json",
-							"Content-Type": "application/json",
-							Origin: "http://localhost:3000",
-						},
-						body: JSON.stringify({ email: email, password: password }),
-					})
-						.then((response) => response.json())
-						.then((response) => {
-							if (!response.ok) {
-								setWarningMessage("Invalid email.");
-								setIsWarningMessage(true);
-							} else {
-								localStorage.setItem(
-									"access_token",
-									response.response.access_token
-								);
-								localStorage.setItem(
-									"refresh_token",
-									response.response.refresh_token
-								);
-								navigate("/user-view", { state: { isSignedIn: true } });
-							}
-						});
+					const encryptedToken = simpleCrypto.encrypt(loginData);
+					const encryptedUUIDObject = simpleCrypto.encrypt(registerData.uuid);
+					localStorage.setItem("JWT", encryptedToken);
+					localStorage.setItem("UUID", encryptedUUIDObject);
+					navigate("/main");
 				}
-			});
+			}
+		} catch (error) {
+			console.error("Error:", error);
+		}
 	};
-
-	// const nameInput = useCallback((inputElement) => {
-	// 	if (inputElement) {
-	// 		inputElement.focus();
-	// 	}
-	// }, []);
 
 	return (
 		<div className="signup">
 			<div className="form-container">
-				<p className="already-signed-in">
-					Already have an account? <NavLink to="/sign-in">Sign in</NavLink>
-				</p>
 				<form className="signup-form" onSubmit={handleSubmit}>
-					<h1>User</h1>
-					<div className="name-wrapper">
+					<div
+						style={{ paddingBottom: "50px" }}
+						className="back-button-wrapper"
+					>
+						<button onClick={() => navigate(-1)}>Back</button>
+					</div>
+					<div className="input-container">
+						<p>First name: </p>
 						<input
 							type="text"
-							placeholder="First Name"
 							name="first_name"
 							value={first_name}
-							onChange={handlefirst_nameChange}
-							// ref={nameInput}
-							required
-						/>
-						<input
-							type="text"
-							placeholder="Last Name"
-							name="last_name"
-							value={last_name}
-							onChange={handlelast_nameChange}
+							onChange={handleFirstNameChange}
 							required
 						/>
 					</div>
-					<input
-						type="text"
-						placeholder="Email"
-						name="email"
-						value={email}
-						onChange={handleEmailChange}
-						required
-					/>
+					<div className="input-container">
+						<p>Last name: </p>
+						<input
+							type="text"
+							name="last_name"
+							value={last_name}
+							onChange={handleLastNameChange}
+							required
+						/>
+					</div>
+					<div className="input-container">
+						<p>Email: </p>
+						<input
+							type="text"
+							name="email"
+							value={email}
+							onChange={handleEmailChange}
+							required
+						/>
+					</div>
+					<div className="input-container">
+						<p>Password: </p>
+						<input
+							type="password"
+							name="password"
+							value={password}
+							onChange={handlePasswordChange}
+							required
+						/>
+					</div>
+					<div className="input-container">
+						<p>Confirm password: </p>
+						<input
+							type="password"
+							name="confirm_password"
+							value={confirm_password}
+							onChange={handleConfirmPasswordChange}
+							required
+						/>
+					</div>
 					{isMismatchedPassword ? (
 						<div className="warning-message">
 							<p>{passwordWarningMessage}</p>
 						</div>
-					) : (
-						<div></div>
-					)}
-					<input
-						type="password"
-						name="password"
-						value={password}
-						onChange={handlePasswordChange}
-						required
-					/>
-					<input
-						type="password"
-						name="confirm_password"
-						value={confirm_password}
-						onChange={handleConfirmPasswordChange}
-						required
-					/>
-					<h1>Personalization</h1>
-					<label>Interests</label>
-					<textarea
-						placeholder="Tech updates, finance news, formula one..."
-						name="interests"
-						value={interests}
-						onChange={handleInterestsChange}
-						style={{ height: "200px" }}
-						required
-					></textarea>
-
-					<label>Content Sources</label>
-					<textarea
-						placeholder="NY Times, Politico..."
-						name="sources"
-						value={sources}
-						onChange={handlesourcesChange}
-						style={{ height: "200px" }}
-					></textarea>
-
-					<label>Daily Digest Personality</label>
-					<input
-						type="text"
-						placeholder="funny and humorous"
-						name="personality"
-						value={personality}
-						onChange={handlePersonalityChange}
-						required
-					/>
-
-					<label>Digest Name</label>
-					<input
-						type="text"
-						placeholder="Alex's Digest"
-						name="digest_name"
-						value={digest_name}
-						onChange={handleDigestNameChange}
-						required
-					/>
+					) : null}
 					{isWarningMessage ? (
 						<div className="warning-message">
 							<p>{warningMessage}</p>
 						</div>
-					) : (
-						<div></div>
-					)}
+					) : null}
 					<div className="button-wrapper">
-						<input type="submit" value="Sign Up" />
+						<input type="submit" value="Sign up" />
 					</div>
 				</form>
 			</div>

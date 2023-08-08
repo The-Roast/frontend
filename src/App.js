@@ -3,10 +3,10 @@ import "./App.css";
 import Home from "./Pages/Home";
 import Signup from "./Pages/Signup";
 import Signin from "./Pages/Signin";
-import UserView from "./Pages/UserView";
-import NewsTemplate from "./Pages/NewsTemplate";
-import Conversation from "./Pages/Conversation";
-import CreateNewsTemplate from "./Pages/CreateNewsTemplate";
+import UserView from "./Pages/Main";
+import DigestSettings from "./Pages/DigestSettings";
+import Newsletter from "./Pages/Newsletter";
+import CreateDigest from "./Pages/CreateDigest";
 import Example1 from "./Pages/example1";
 import Example2 from "./Pages/example2";
 import Example3 from "./Pages/example3";
@@ -27,14 +27,14 @@ function App() {
 				<Route path="/" element={<Home />} />
 				<Route path="/sign-up" element={<Signup />} />
 				<Route path="/sign-in" element={<Signin />} />
-				<Route exact path="/user-view" element={<UserView />} />
-				<Route path="/user-view/:flavor" element={<NewsTemplate />} />
-				<Route path="/create-digest" element={<CreateNewsTemplate />} />
+				<Route exact path="/main" element={<UserView />} />
+				<Route path="/main/digest/:uuid" element={<DigestSettings />} />
+				<Route path="/create-digest" element={<CreateDigest />} />
 				<Route path="/example1" element={<Example1 />} />
 				<Route path="/example2" element={<Example2 />} />
 				<Route path="/example3" element={<Example3 />} />
 				<Route path="/example4" element={<Example4 />} />
-				<Route path="/conversation" element={<Conversation />} />
+				<Route path="/newsletter/:uuid" element={<Newsletter />} />
 			</Routes>
 		</Router>
 	);

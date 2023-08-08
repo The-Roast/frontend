@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import jsonData from "./data.json";
 
 const TextColumns = () => {
 	const [pages, setPages] = useState([]);
@@ -20,9 +19,7 @@ const TextColumns = () => {
 		const newspaperHeight = 800; // Adjust the newspaper height as needed
 		const numLinesPerPage = Math.floor(newspaperHeight / lineHeight);
 
-		let content = jsonData.reduce((acc, { title, body }) => {
-			return acc + (title ? `<h1>${title}</h1>` : "") + body;
-		}, "");
+		let content = "";
 
 		const pages = [];
 		let currentPage = "";
