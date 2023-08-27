@@ -1,11 +1,12 @@
-import "./styles/Card.css";
+import "./styles/PresetCard.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { simpleCrypto, BACKEND_URL } from "../HTTP";
 
-const Card = (data) => {
+const PresetCard = (data) => {
 	let navigate = useNavigate();
 	const digest = data.digest;
+	const personalities = data.personalities;
 	const index = data.index;
 	const [isEnabled, setIsEnabled] = useState(true);
 	const [isHovered, setIsHovered] = useState(false);
@@ -16,8 +17,8 @@ const Card = (data) => {
 
 	const handleCardClick = () => {
 		console.log("clicked!");
-		let path = `/main/digest/${digest.uuid}`;
-		navigate(path, { state: { digest: digest } });
+		// let path = `/digest/${digest.uuid}`;
+		// navigate(path, { state: { digest: digest } });
 	};
 
 	const handleCardDisable = async (e) => {
@@ -60,10 +61,11 @@ const Card = (data) => {
 
 	return (
 		<div
-			className={`digest-card${isEnabled ? "" : " disabled"}`}
+			className={`preset-digest-card ${isEnabled ? "" : "disabled"}`}
 			style={{
 				backgroundColor: index % 4 === 0 ? "#FCF9E1" : "#F9F9F6",
 				outlineColor: digest.color,
+				minHeight: "auto",
 			}}
 			onClick={() => isEnabled && handleCardClick()}
 		>
@@ -89,30 +91,21 @@ const Card = (data) => {
 						</div>
 					</div>
 				</div>
-				<hr />
-				<div className="digest-row">
-					<label>Frequency: </label>
-					<p>Daily</p>
-				</div>
-				<hr />
-				<div className="digest-row">
-					<label>Personality: </label>
-					<p>{capitalizeFirstLetter(digest.personality)}</p>
-				</div>
-				<hr />
-				<div className="digest-row">
-					<label>Interests: </label>
+				<div className="preset-digest-row">
+					<p>Interests: </p>
 					<p>{capitalizeFirstLetter(digest.interests.join(", "))}</p>
 				</div>
-				<hr />
-				<div className="digest-row">
-					<label>Sources: </label>
-					<p>{capitalizeFirstLetter(digest.sources.join(", "))}</p>
+				<div className="preset-digest-row">
+					<p for="personality">Personality:</p>
+					<select id="personality" name="personality">
+						{personalities.map((personality, index) => (
+							<option value={personality}>{personality}</option>
+						))}
+					</select>
 				</div>
-				<hr />
 			</div>
 		</div>
 	);
 };
 
-export default Card;
+export default PresetCard;

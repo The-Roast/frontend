@@ -32,6 +32,8 @@ const SettingsGrid = ({ data }) => {
 										onChange={item.onChange}
 									/>
 								</div>
+							) : item.preference === "Email" ? (
+								<div>{item.value}</div>
 							) : (
 								<input
 									type="text"

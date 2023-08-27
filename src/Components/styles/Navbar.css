@@ -1,0 +1,20 @@
+.navbar {
+	width: 100%;
+	margin: 0px 3px;
+	border: 3px solid black;
+	box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+	background-color: white;
+	display: flex;
+	justify-content: space-evenly;
+	margin: 20px 0px;
+	padding: 10px 0px;
+}
+
+.navbar button {
+	background-color: transparent;
+	border: none;
+	outline: none;
+	font-family: "GT Alpina";
+	font-size: 20px;
+	cursor: pointer;
+}

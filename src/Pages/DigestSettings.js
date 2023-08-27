@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import Loading from "../Components/Loading";
 import SettingsGrid from "../Components/SettingsGrid";
+import Menu from "../Components/Menu";
 import "./styles/DigestSettings.css";
 import { simpleCrypto, BACKEND_URL } from "../HTTP";
+
 function DigestSettings() {
 	const navigate = useNavigate();
 	const [unsavedChanges, setUnsavedChanges] = useState(false);
@@ -85,10 +87,6 @@ function DigestSettings() {
 		}
 	};
 
-	function timeout(delay) {
-		return new Promise((res) => setTimeout(res, delay));
-	}
-
 	const handleGenerate = async () => {
 		setIsLoading(true);
 		const uuid = digest.uuid;
@@ -146,11 +144,11 @@ function DigestSettings() {
 		<Loading />
 	) : (
 		<div className="digest-settings">
+			<Menu />
 			<div className="digest-settings-container">
 				<div className="header">
 					<h1>Settings</h1>
 				</div>
-
 				<SettingsGrid data={data} />
 
 				<div className="button-container">

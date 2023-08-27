@@ -1,4 +1,3 @@
-/* CustomColorPicker.css */
 .color-picker-container {
 	position: relative;
 	display: flex;
@@ -20,13 +19,14 @@
 
 .color-picker-popup {
 	position: absolute;
-	padding: 10px;
-	background-color: white;
-	box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
+	padding: 15px;
+	background-color: var(--almost-white);
+	box-shadow: 0px 4px 4px 1px rgb(0, 0, 0, 0.25);
 	z-index: 10;
-	border-radius: 2%;
 	top: calc(100% - 30px);
 	left: calc(100% + 30px);
+	/* outline: 1.5px solid black;
+	outline-offset: -7.5px; */
 }
 
 .color-gradient {
@@ -49,6 +49,25 @@
 	transform: translate(-50%, -50%);
 	cursor: pointer;
 }
+
+.color-controls {
+	font-size: 20px;
+	font-weight: 500;
+	padding: 10px 5px;
+	display: flex;
+	flex-direction: column;
+	gap: 5px;
+}
+
+.color-controls label {
+	font-family: "Futura";
+	font-weight: 500;
+}
+
+.color-controls hr {
+	margin: 5px -5px;
+}
+
 .custom-slider input[type="range"] {
 	width: 100%;
 	-webkit-appearance: none;

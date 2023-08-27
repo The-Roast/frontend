@@ -1,0 +1,48 @@
+.menu-wrapper {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+	position: absolute;
+	top: 20px;
+	right: 50px;
+	font-size: 16px;
+}
+
+button.menu-button {
+	background-color: var(--light-grey);
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	border: none;
+	outline: none;
+	font-family: "GT Alpina";
+	font-size: 20px;
+	cursor: pointer;
+	display: flex;
+}
+
+.dropdown {
+	background-color: white;
+	padding: 20px;
+	margin: 20px -20px -20px -20px;
+}
+
+.dropdown button {
+	border: none;
+	background-color: transparent;
+	color: black;
+	font-family: "GT Alpina", serif;
+	font-size: 16px;
+	cursor: pointer;
+}
+
+.dropdown.disabled {
+	display: none;
+}
+
+.dropdown.enabled {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	background-color: white;
+}

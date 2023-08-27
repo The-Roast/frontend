@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { BACKEND_URL, simpleCrypto } from "../HTTP";
-import Card from "../Components/Card";
+import DigestCard from "../Components/DigestCard";
+import Menu from "../Components/Menu";
 import PlusIcon from "./images/Plus.svg";
-import "./styles/Main.css";
+import "./styles/Digests.css";
+import Navbar from "../Components/Navbar";
 
-const UserView = () => {
+const Digests = () => {
 	let navigate = useNavigate();
 	const [digests, setDigests] = useState([]);
 
@@ -18,25 +20,21 @@ const UserView = () => {
 		const JWT = simpleCrypto.decrypt(encryptedObject);
 
 		try {
-			const digestRes = await fetch(
-				`${BACKEND_URL}/api/v1/digest/aggregate/all`,
-				{
-					method: "get",
-					headers: {
-						Accept: "application/json",
-						"Content-Type": "application/json",
-						Authorization: JWT.token_type + " " + JWT.access_token,
-					},
-				}
-			);
+			const digestRes = await fetch(`${BACKEND_URL}/api/v1/digest/all/`, {
+				method: "get",
+				headers: {
+					Accept: "application/json",
+					"Content-Type": "application/json",
+					Authorization: JWT.token_type + " " + JWT.access_token,
+				},
+			});
 
 			const digestData = await digestRes.json();
-
 			if (!digestRes.ok) {
 				console.error(digestRes.status);
 			} else {
 				const newDigests = [...digests];
-				digestData.map(function (digest) {
+				digestData.map((digest) => {
 					newDigests.push(digest);
 				});
 				setDigests(newDigests);
@@ -52,13 +50,15 @@ const UserView = () => {
 
 	return (
 		<div className="main">
+			<Menu />
 			<div className="main-container">
 				<div className="header">
 					<h1>Digests</h1>
 				</div>
+				<Navbar />
 				<div className="digests-grid">
 					{digests.map((digest, index) => (
-						<Card digest={digest} index={index} />
+						<DigestCard digest={digest} index={index} key={index} />
 					))}
 					<div className="create-digest-card" onClick={() => handleCreate()}>
 						<img src={PlusIcon} alt="Plus icon" />
@@ -69,4 +69,4 @@ const UserView = () => {
 	);
 };
 
-export default UserView;
+export default Digests;

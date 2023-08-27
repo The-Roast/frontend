@@ -29,6 +29,13 @@
 	padding: 50px;
 }
 
+.signup-form form {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+}
+
 .signup-form p {
 	font-size: 20px;
 	padding-right: 10px;

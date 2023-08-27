@@ -88,6 +88,28 @@ const CustomColorPicker = ({ currentColor, onChange }) => {
 			></div>
 			{showPicker && (
 				<div className="color-picker-popup" ref={pickerRef}>
+					<div className="color-controls">
+						<label>{hexValue}</label>
+						<div className="custom-slider">
+							<input
+								type="range"
+								min="0"
+								max="360"
+								value={hue}
+								onChange={(event) => setHue(event.target.value)}
+								style={{
+									backgroundImage: `linear-gradient(to right, 
+                    hsl(0, 100%, 50%), 
+                    hsl(60, 100%, 50%), 
+                    hsl(120, 100%, 50%), 
+                    hsl(180, 100%, 50%), 
+                    hsl(240, 100%, 50%), 
+                    hsl(300, 100%, 50%), 
+                    hsl(360, 100%, 50%))`,
+								}}
+							/>
+						</div>
+					</div>
 					<div
 						className="color-gradient"
 						onMouseMove={handleMouseMove}
@@ -108,27 +130,6 @@ const CustomColorPicker = ({ currentColor, onChange }) => {
 							}}
 							onMouseDown={handleMouseDown}
 						></div>
-					</div>
-					<div className="color-controls">
-						<div className="custom-slider">
-							<input
-								type="range"
-								min="0"
-								max="360"
-								value={hue}
-								onChange={(event) => setHue(event.target.value)}
-								style={{
-									backgroundImage: `linear-gradient(to right, 
-                    hsl(0, 100%, 50%), 
-                    hsl(60, 100%, 50%), 
-                    hsl(120, 100%, 50%), 
-                    hsl(180, 100%, 50%), 
-                    hsl(240, 100%, 50%), 
-                    hsl(300, 100%, 50%), 
-                    hsl(360, 100%, 50%))`,
-								}}
-							/>
-						</div>
 					</div>
 				</div>
 			)}

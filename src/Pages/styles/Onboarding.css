@@ -1,0 +1,29 @@
+.onboarding {
+	height: 100vh;
+	overflow-y: auto;
+}
+
+.onboarding-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: left;
+	padding: 100px 350px;
+	gap: 50px;
+}
+
+@media screen and (max-width: 1700px) {
+	.onboarding-container .header h1 {
+		font-size: 100px;
+	}
+}
+
+@media screen and (max-width: 1350px) {
+	.onboarding-container {
+		padding: 100px 200px;
+	}
+
+	.onboarding-container .header h1 {
+		font-size: 80px;
+	}
+}

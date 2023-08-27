@@ -24,6 +24,13 @@
 	padding: 50px;
 }
 
+.signin-form form {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+}
+
 .signin-form p {
 	font-size: 20px;
 	padding-right: 10px;

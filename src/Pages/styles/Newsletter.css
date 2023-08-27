@@ -4,7 +4,7 @@ html {
 
 .newsletter {
 	display: flex;
-	padding: 50px 150px;
+	padding: 100px 150px;
 }
 
 .recording-wrapper {
@@ -24,11 +24,9 @@ html {
 }
 
 .left-view {
-	/* padding-right: 50px; */
 	padding-right: 150px;
-	padding-left: 150px;
 	width: 50%;
-	height: calc(100vh - 150px);
+	height: calc(100vh - 100px);
 	overflow-y: scroll;
 	padding-bottom: 20px;
 	display: flex;
@@ -37,13 +35,7 @@ html {
 	width: 50%;
 }
 
-.left-view-scroll {
-	overflow-y: auto;
-	height: 100%;
-	padding: 20px 0px;
-}
-
-.left-view-scroll::-webkit-scrollbar {
+.left-view::-webkit-scrollbar {
 	display: none;
 }
 
@@ -85,7 +77,6 @@ html {
 	border-radius: 10px;
 	background-color: #fffdf5;
 	border: 2px solid grey;
-	margin-top: 50px;
 	padding-top: 25px;
 	padding-right: 50px;
 	font-weight: 600;
@@ -126,11 +117,6 @@ html {
 	background-color: transparent;
 }
 
-#message {
-	font-size: 30px;
-	animation: fadein 2s;
-}
-
 @keyframes fadein {
 	from {
 		opacity: 0;
@@ -166,12 +152,12 @@ html {
 	font-size: 24px;
 }
 
-.user {
+.message.user {
 	font-style: italic;
 	text-align: right;
 }
 
-.bot {
+.message.agent {
 	font-weight: normal;
 }
 

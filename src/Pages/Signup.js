@@ -37,6 +37,7 @@ function Signup() {
 		setConfirmPassword(e.target.value);
 	};
 
+	// Move to onboarding page
 	const handleSubmit = async (event) => {
 		event.preventDefault();
 		if (password !== confirm_password) {
@@ -91,7 +92,7 @@ function Signup() {
 					const encryptedUUIDObject = simpleCrypto.encrypt(registerData.uuid);
 					localStorage.setItem("JWT", encryptedToken);
 					localStorage.setItem("UUID", encryptedUUIDObject);
-					navigate("/main");
+					navigate("/onboarding");
 				}
 			}
 		} catch (error) {
@@ -102,77 +103,79 @@ function Signup() {
 	return (
 		<div className="signup">
 			<div className="form-container">
-				<form className="signup-form" onSubmit={handleSubmit}>
+				<div className="signup-form">
 					<div
-						style={{ paddingBottom: "50px" }}
+						style={{ paddingBottom: "10px" }}
 						className="back-button-wrapper"
 					>
 						<button onClick={() => navigate(-1)}>Back</button>
 					</div>
-					<div className="input-container">
-						<p>First name: </p>
-						<input
-							type="text"
-							name="first_name"
-							value={first_name}
-							onChange={handleFirstNameChange}
-							required
-						/>
-					</div>
-					<div className="input-container">
-						<p>Last name: </p>
-						<input
-							type="text"
-							name="last_name"
-							value={last_name}
-							onChange={handleLastNameChange}
-							required
-						/>
-					</div>
-					<div className="input-container">
-						<p>Email: </p>
-						<input
-							type="text"
-							name="email"
-							value={email}
-							onChange={handleEmailChange}
-							required
-						/>
-					</div>
-					<div className="input-container">
-						<p>Password: </p>
-						<input
-							type="password"
-							name="password"
-							value={password}
-							onChange={handlePasswordChange}
-							required
-						/>
-					</div>
-					<div className="input-container">
-						<p>Confirm password: </p>
-						<input
-							type="password"
-							name="confirm_password"
-							value={confirm_password}
-							onChange={handleConfirmPasswordChange}
-							required
-						/>
-					</div>
-					{isMismatchedPassword ? (
-						<div className="warning-message">
-							<p>{passwordWarningMessage}</p>
+					<form onSubmit={handleSubmit}>
+						<div className="input-container">
+							<p>First name: </p>
+							<input
+								type="text"
+								name="first_name"
+								value={first_name}
+								onChange={handleFirstNameChange}
+								required
+							/>
 						</div>
-					) : null}
-					{isWarningMessage ? (
-						<div className="warning-message">
-							<p>{warningMessage}</p>
+						<div className="input-container">
+							<p>Last name: </p>
+							<input
+								type="text"
+								name="last_name"
+								value={last_name}
+								onChange={handleLastNameChange}
+								required
+							/>
 						</div>
-					) : null}
-					<div className="button-wrapper">
-						<input type="submit" value="Sign up" />
-					</div>
-				</form>
+						<div className="input-container">
+							<p>Email: </p>
+							<input
+								type="text"
+								name="email"
+								value={email}
+								onChange={handleEmailChange}
+								required
+							/>
+						</div>
+						<div className="input-container">
+							<p>Password: </p>
+							<input
+								type="password"
+								name="password"
+								value={password}
+								onChange={handlePasswordChange}
+								required
+							/>
+						</div>
+						<div className="input-container">
+							<p>Confirm password: </p>
+							<input
+								type="password"
+								name="confirm_password"
+								value={confirm_password}
+								onChange={handleConfirmPasswordChange}
+								required
+							/>
+						</div>
+						{isMismatchedPassword ? (
+							<div className="warning-message">
+								<p>{passwordWarningMessage}</p>
+							</div>
+						) : null}
+						{isWarningMessage ? (
+							<div className="warning-message">
+								<p>{warningMessage}</p>
+							</div>
+						) : null}
+						<div className="button-wrapper" style={{ paddingTop: "20px" }}>
+							<input type="submit" value="Sign up" />
+						</div>
+					</form>
+				</div>
 			</div>
 		</div>
 	);

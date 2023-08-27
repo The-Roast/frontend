@@ -19,7 +19,7 @@ function CreateDigest() {
 	};
 
 	const handleColorChange = (color) => {
-		setColor(color.hex);
+		setColor(color);
 	};
 
 	const handlePersonalityChange = (event) => {
@@ -48,6 +48,8 @@ function CreateDigest() {
 			color: color,
 		};
 
+		console.log(createDigestBody);
+
 		try {
 			const createDigestRes = await fetch(`${BACKEND_URL}/api/v1/digest`, {
 				method: "POST",
@@ -62,12 +64,12 @@ function CreateDigest() {
 			if (!createDigestRes.ok) {
 				console.error(createDigestRes.status);
 			} else {
-				navigate("/main");
+				navigate("/digest");
 			}
 		} catch (error) {
 			console.error("Error: ", error);
 		}
-		navigate("/main");
+		navigate("/digest");
 	};
 
 	const data = [
@@ -106,7 +108,7 @@ function CreateDigest() {
 					<div className="button-wrapper">
 						<input
 							type="submit"
-							value="Generate digest"
+							value="Create digest"
 							onClick={() => handleCreate()}
 						/>
 					</div>

@@ -1,4 +1,5 @@
 import "./styles/Signin.css";
+import Loading from "../Components/Loading";
 import { useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { encodeURL, simpleCrypto, BACKEND_URL } from "../HTTP";
@@ -9,6 +10,7 @@ function Signin() {
 	const navigate = useNavigate();
 	const [warningMessage, setWarningMessage] = useState("");
 	const [isWarningMessage, setIsWarningMessage] = useState(false);
+	const [isLoading, setIsLoading] = useState(false);
 
 	const handleEmailChange = (e) => {
 		setEmail(e.target.value);
@@ -28,6 +30,7 @@ function Signin() {
 
 		// Send the form data to the server for further processing
 		try {
+			setIsLoading(true);
 			const loginRes = await fetch(`${BACKEND_URL}/auth/login/access-token`, {
 				method: "POST",
 				headers: {
@@ -57,18 +60,21 @@ function Signin() {
 				const userData = await userRes.json();
 
 				if (!userRes.ok) {
+					setIsLoading(false);
 					console.error(userRes.status);
 				} else {
+					setIsLoading(false);
 					const encryptedUUIDObject = simpleCrypto.encrypt(userData.uuid);
 					const encryptedToken = simpleCrypto.encrypt(loginData);
 
 					localStorage.setItem("JWT", encryptedToken);
 					localStorage.setItem("UUID", encryptedUUIDObject);
 
-					navigate("/main");
+					navigate("/newsletter");
 				}
 			}
 		} catch (error) {
+			setIsLoading(false);
 			console.error("Error:", error);
 		}
 	};
@@ -79,47 +85,48 @@ function Signin() {
 		}
 	}, []);
 
-	return (
+	return isLoading ? (
+		<Loading />
+	) : (
 		<div className="sign-in">
 			<div className="form-container">
-				<form className="signin-form" onSubmit={handleSubmit}>
-					<div
-						style={{ paddingBottom: "50px" }}
-						className="back-button-wrapper"
-					>
+				<div className=" signin-form">
+					<div className="back-button-wrapper">
 						<button onClick={() => navigate(-1)}>Back</button>
 					</div>
-					<div className="input-container">
-						<p>Email:</p>
-						<input
-							type="text"
-							name="email"
-							value={email}
-							onChange={handleEmailChange}
-							ref={emailInput}
-							required
-						/>
-					</div>
-					<div className="input-container">
-						<p>Password:</p>
-						<input
-							type="password"
-							name="password"
-							value={password}
-							onChange={handlePasswordChange}
-							required
-						/>
-					</div>
-
-					{isWarningMessage ? (
-						<div className="warning-message">
-							<p>{warningMessage}</p>
+					<form onSubmit={handleSubmit}>
+						<div className="input-container">
+							<p>Email:</p>
+							<input
+								type="text"
+								name="email"
+								value={email}
+								onChange={handleEmailChange}
+								ref={emailInput}
+								required
+							/>
 						</div>
-					) : null}
-					<div className="button-wrapper">
-						<input type="submit" value="Sign in" />
-					</div>
-				</form>
+						<div className="input-container">
+							<p>Password:</p>
+							<input
+								type="password"
+								name="password"
+								value={password}
+								onChange={handlePasswordChange}
+								required
+							/>
+						</div>
+
+						{isWarningMessage ? (
+							<div className="warning-message">
+								<p>{warningMessage}</p>
+							</div>
+						) : null}
+						<div className="button-wrapper" style={{ paddingTop: "20px" }}>
+							<input type="submit" value="Sign in" />
+						</div>
+					</form>
+				</div>
 			</div>
 		</div>
 	);

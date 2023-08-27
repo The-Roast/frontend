@@ -143,6 +143,86 @@
 }
 
 @font-face {
+	font-family: "GT Alpina Extended";
+	font-style: normal;
+	font-weight: 100;
+	src: url("fonts/GT-Alpina/GT-Alpina-Extended-Thin-Trial.otf")
+		format("opentype");
+}
+
+@font-face {
+	font-family: "GT Alpina Extended";
+	font-style: italic;
+	font-weight: 100;
+	src: url("fonts/GT-Alpina/GT-Alpina-Extended-Thin-Italic-Trial.otf")
+		format("opentype");
+}
+
+@font-face {
+	font-family: "GT Alpina Extended";
+	font-style: normal;
+	font-weight: lighter;
+	src: url("fonts/GT-Alpina/GT-Alpina-Extended-Light-Trial.otf")
+		format("opentype");
+}
+
+@font-face {
+	font-family: "GT Alpina Extended";
+	font-style: italic;
+	font-weight: lighter;
+	src: url("fonts/GT-Alpina/GT-Alpina-Extended-Light-Italic-Trial.otf")
+		format("opentype");
+}
+
+@font-face {
+	font-family: "GT Alpina Extended";
+	font-style: normal;
+	font-weight: normal;
+	src: url("fonts/GT-Alpina/GT-Alpina-Extended-Regular-Trial.otf")
+		format("opentype");
+}
+
+@font-face {
+	font-family: "GT Alpina Extended";
+	font-style: italic;
+	font-weight: normal;
+	src: url("fonts/GT-Alpina/GT-Alpina-Extended-Regular-Italic-Trial.otf")
+		format("opentype");
+}
+
+@font-face {
+	font-family: "GT Alpina Extended";
+	font-style: normal;
+	font-weight: normal;
+	src: url("fonts/GT-Alpina/GT-Alpina-Extended-Medium-Trial.otf")
+		format("opentype");
+}
+
+@font-face {
+	font-family: "GT Alpina Extended";
+	font-style: italic;
+	font-weight: normal;
+	src: url("fonts/GT-Alpina/GT-Alpina-Extended-Medium-Italic-Trial.otf")
+		format("opentype");
+}
+
+@font-face {
+	font-family: "GT Alpina Extended";
+	font-style: normal;
+	font-weight: bold;
+	src: url("fonts/GT-Alpina/GT-Alpina-Extended-Bold-Trial.otf")
+		format("opentype");
+}
+
+@font-face {
+	font-family: "GT Alpina Extended";
+	font-style: italic;
+	font-weight: bold;
+	src: url("fonts/GT-Alpina/GT-Alpina-Extended-Bold-Italic-Trial.otf")
+		format("opentype");
+}
+
+@font-face {
 	font-family: "Futura";
 	src: url("fonts/Futura/Futura Black.ttf") format("truetype");
 	font-weight: 900;
@@ -307,6 +387,7 @@
 }
 
 body {
+	overflow: hidden;
 	margin: 0;
 	font-family: "GT Alpina";
 	background-color: var(--pistachio-green);
