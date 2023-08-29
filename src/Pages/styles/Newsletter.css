@@ -49,19 +49,25 @@ html {
 	background-color: #fcf9e1;
 	white-space: normal;
 	overflow-wrap: break-word;
-	column-count: 2;
-	column-fill: auto;
-	column-gap: 20px;
-}
-
-.newsletter-page p {
 	font-size: 16px;
 	line-height: 130%;
 	text-align: justify;
 }
 
-.newsletter-page h1 {
+.newsletter-page .two-columns {
+	column-count: 2;
+	column-fill: balance;
+	column-gap: 20px;
+}
+
+.newsletter-page .title {
+	font-size: 40px;
+}
+
+.newsletter-page h1,
+.newsletter-page h2 {
 	text-align: center;
+	line-height: normal;
 }
 
 .first-page {

@@ -11,9 +11,48 @@ function Conversation() {
 	const { state, pathname } = useLocation();
 	const newsletter_uuid = pathname.split("/").pop();
 
-	const [content, setContent] = useState([]);
-	const [columns, setColumns] = useState([]);
+	const [pages, setPages] = useState([]);
+	const [pageSize, setPageSize] = useState(2600); // Initial page size
+	const [title, setTitle] = useState("");
 	const [chatHistory, setChatHistory] = useState([]);
+
+	const combineText = (data) => {
+		const introduction = `<p>${data.introduction}</p>`;
+		setTitle(data.title);
+		const bodyTexts = data.body.map(
+			(item) => `<h2>${item.title}</h2>${item.body}`
+		);
+		const conclusion = data.conclusion;
+
+		const combinedText = introduction + bodyTexts.join(" ") + conclusion;
+		return combinedText;
+	};
+
+	const divideTextIntoPages = (text, pageSize) => {
+		const pages = [];
+		const words = text.split(" ");
+		let currentPage = "";
+		let index = 0;
+		words.forEach((word) => {
+			let size = pageSize;
+			if (index === 0) {
+				size = 2300;
+			}
+			if ((currentPage + word).length <= size) {
+				currentPage += (currentPage ? " " : "") + word;
+			} else {
+				pages.push(currentPage);
+				index += 1;
+				currentPage = word;
+			}
+		});
+
+		if (currentPage) {
+			pages.push(currentPage);
+		}
+
+		return pages;
+	};
 
 	const getNewsletter = async () => {
 		if (state === null) {
@@ -33,42 +72,16 @@ function Conversation() {
 				if (!newsletterRes.ok) {
 					console.error(newsletterRes.status);
 				} else {
-					const introSection = {
-						title: newsletterData.title,
-						body: newsletterData.introduction,
-					};
-					const conclusionSection = {
-						title: "Conclusion",
-						body: newsletterData.conclusion,
-					};
-					let newContent = [];
-					newContent.push(introSection);
-					newsletterData.body.map(({ title, body }) =>
-						newContent.push({ title, body })
-					);
-					newContent.push(conclusionSection);
-					setContent(newContent);
+					const combinedText = combineText(newsletterData);
+					setPages(divideTextIntoPages(combinedText, pageSize));
 				}
 			} catch (error) {
 				console.error("Error: ", error);
 			}
 		} else {
 			const { newsletter } = state;
-			const introSection = {
-				title: newsletter.title,
-				body: newsletter.introduction,
-			};
-			const conclusionSection = {
-				title: "Conclusion",
-				body: newsletter.conclusion,
-			};
-			let newContent = [];
-			newContent.push(introSection);
-			newsletter.body.map(({ title, body }) =>
-				newContent.push({ title, body })
-			);
-			newContent.push(conclusionSection);
-			setContent(newContent);
+			const combinedText = combineText(newsletter);
+			setPages(divideTextIntoPages(combinedText, pageSize));
 		}
 	};
 
@@ -179,26 +192,21 @@ function Conversation() {
 					<audio id="existing-audio" controls></audio>
 				</div> */}
 					<div
-						className="newsletter-page"
+						className="col newsletter-page"
 						style={{
 							backgroundImage: `url(${exampleCover})`,
 							backgroundSize: "cover",
 						}}
 					></div>
-					{/* {content.map(({ title, body }) => (
-					<div className="newsletter-page">
-						<h1>{title}</h1>
-						<div dangerouslySetInnerHTML={{ __html: body }} />
-					</div>
-				))} */}
-					{/* <div id="container"> */}
-					{content.map((item, index) => (
+					{pages.map((pageContent, index) => (
 						<div key={index} className="col newsletter-page">
-							<h2>{item.title}</h2>
-							<div dangerouslySetInnerHTML={{ __html: item.body }} />
+							{index === 0 ? <h1 className="title">{title}</h1> : null}
+							<div
+								className="two-columns"
+								dangerouslySetInnerHTML={{ __html: pageContent }}
+							/>
 						</div>
 					))}
-					{/* </div> */}
 				</div>
 				<div className="right-view">
 					<div className="notepad">
