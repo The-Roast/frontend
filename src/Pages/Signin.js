@@ -1,5 +1,5 @@
 import "./styles/Signin.css";
-import Loading from "../Components/Loading";
+import { Loading } from "../Components/Components";
 import { useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { encodeURL, simpleCrypto, BACKEND_URL } from "../HTTP";

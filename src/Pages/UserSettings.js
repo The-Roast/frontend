@@ -1,9 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import Loading from "../Components/Loading";
-import SettingsGrid from "../Components/SettingsGrid";
-import Menu from "../Components/Menu";
-import Navbar from "../Components/Navbar";
+import { Loading, SettingsGrid, Menu, Navbar } from "../Components/Components";
 import "./styles/UserSettings.css";
 import { simpleCrypto, BACKEND_URL } from "../HTTP";
 

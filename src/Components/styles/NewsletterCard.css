@@ -1,6 +1,6 @@
 .newsletter-container {
 	display: flex;
-	padding: 30px;
+	padding: 20px;
 	padding-top: 0px;
 	flex-direction: column;
 	align-items: flex-start;
@@ -12,7 +12,8 @@
 	height: 3px;
 	width: 100%;
 	background-color: black;
-	margin: 0px;
+	margin: 0px -20px;
+	padding: 0px 20px;
 }
 
 .newsletter-info {
@@ -76,21 +77,27 @@
 	overflow: hidden;
 	text-overflow: ellipsis;
 	display: -webkit-box;
-	-webkit-line-clamp: 3;
+	-webkit-line-clamp: 2;
 	-webkit-box-orient: vertical;
 }
 
 .newsletter-body {
-	font-size: 18px;
+	font-size: 16px;
 	width: 250px;
-	height: 150px;
+	height: 160px;
 	overflow: hidden;
 }
 
-.newsletter-body p {
+.newsletter-body li {
+	margin-left: -20px;
+}
+
+.newsletter-body li p {
+	width: 220px;
 	overflow-x: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
+	margin: 2px;
 }
 
 .newsletter-circle {

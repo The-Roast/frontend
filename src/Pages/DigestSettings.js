@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import Loading from "../Components/Loading";
-import SettingsGrid from "../Components/SettingsGrid";
-import Menu from "../Components/Menu";
 import "./styles/DigestSettings.css";
 import { simpleCrypto, BACKEND_URL } from "../HTTP";
+import { Loading, SettingsGrid, Menu } from "../Components/Components";
 
 function DigestSettings() {
 	const navigate = useNavigate();

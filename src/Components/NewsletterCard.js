@@ -26,18 +26,23 @@ const NewsletterCard = (data) => {
 				<hr />
 
 				<div className="newsletter-info">
+					<p>{newsletter.date ? newsletter.date : "08-13-2023"}</p>
+
 					<div
 						className="newsletter-circle"
 						style={{ backgroundColor: `${digest.color}` }}
 					></div>
-					<p>{newsletter.date ? newsletter.date : "08-13-2023"}</p>
 				</div>
 				<hr />
 				<div className="newsletter-title">{newsletter.title}</div>
 				<div className="newsletter-body">
-					{newsletter.body.map((data, index) => (
-						<p>{data.title}</p>
-					))}
+					<ul>
+						{newsletter.body.map((data, index) => (
+							<li>
+								<p>{data.title}</p>
+							</li>
+						))}
+					</ul>
 				</div>
 			</div>
 		</div>

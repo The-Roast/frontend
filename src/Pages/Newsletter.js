@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 // import { useWhisper } from "@chengsokdara/use-whisper";
 import "./styles/Newsletter.css";
 import { simpleCrypto, BACKEND_URL } from "../HTTP";
-import Menu from "../Components/Menu";
+import { Menu } from "../Components/Components";
 // import XI_API_KEY from "../Config";
 import { useLocation } from "react-router-dom";
 import exampleCover from "./images/example-cover.png";
@@ -17,9 +17,6 @@ function Conversation() {
 
 	const getNewsletter = async () => {
 		if (state === null) {
-			const encryptedObject = localStorage.getItem("JWT");
-			const JWT = simpleCrypto.decrypt(encryptedObject);
-
 			try {
 				const newsletterRes = await fetch(
 					`${BACKEND_URL}/api/v1/newsletter/${newsletter_uuid}`,
@@ -28,7 +25,6 @@ function Conversation() {
 						headers: {
 							Accept: "application/json",
 							"Content-Type": "application/json",
-							Authorization: JWT.token_type + " " + JWT.access_token,
 						},
 					}
 				);

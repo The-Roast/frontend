@@ -9,8 +9,6 @@ function Signup() {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [confirm_password, setConfirmPassword] = useState("");
-	const [warningMessage, setWarningMessage] = useState("");
-	const [isWarningMessage, setIsWarningMessage] = useState(false);
 	const passwordWarningMessage = "Passwords don't match!";
 	const [isMismatchedPassword, setIsMismatchedPassword] = useState(false);
 	const navigate = useNavigate();
@@ -37,7 +35,6 @@ function Signup() {
 		setConfirmPassword(e.target.value);
 	};
 
-	// Move to onboarding page
 	const handleSubmit = async (event) => {
 		event.preventDefault();
 		if (password !== confirm_password) {
@@ -50,54 +47,7 @@ function Signup() {
 			email: email,
 			password: password,
 		};
-
-		// Send the form data to the server for further processing
-		try {
-			const registerRes = await fetch(`${BACKEND_URL}/auth/register`, {
-				method: "POST",
-				headers: {
-					Accept: "application/json",
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify(registerBody),
-			});
-
-			const registerData = await registerRes.json();
-
-			if (!registerRes.ok) {
-				console.error(registerRes.status);
-				setWarningMessage(registerData.detail);
-				setIsWarningMessage(true);
-			} else {
-				const loginBody = {
-					email,
-					password,
-				};
-
-				const loginRes = await fetch(`${BACKEND_URL}/auth/login/access-token`, {
-					method: "POST",
-					headers: {
-						Accept: "application/json",
-						"Content-Type": "application/json",
-					},
-					body: encodeURL(loginBody),
-				});
-				const loginData = await loginRes.json();
-				if (!loginRes.ok) {
-					console.error(loginRes.status);
-					setWarningMessage(loginData.detail);
-					setIsWarningMessage(true);
-				} else {
-					const encryptedToken = simpleCrypto.encrypt(loginData);
-					const encryptedUUIDObject = simpleCrypto.encrypt(registerData.uuid);
-					localStorage.setItem("JWT", encryptedToken);
-					localStorage.setItem("UUID", encryptedUUIDObject);
-					navigate("/onboarding");
-				}
-			}
-		} catch (error) {
-			console.error("Error:", error);
-		}
+		navigate("/onboarding", { state: { registerBody: registerBody } });
 	};
 
 	return (
@@ -166,11 +116,7 @@ function Signup() {
 								<p>{passwordWarningMessage}</p>
 							</div>
 						) : null}
-						{isWarningMessage ? (
-							<div className="warning-message">
-								<p>{warningMessage}</p>
-							</div>
-						) : null}
+
 						<div className="button-wrapper" style={{ paddingTop: "20px" }}>
 							<input type="submit" value="Sign up" />
 						</div>

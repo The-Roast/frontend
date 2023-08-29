@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { BACKEND_URL, simpleCrypto } from "../HTTP";
-import DigestCard from "../Components/DigestCard";
-import Menu from "../Components/Menu";
 import PlusIcon from "./images/Plus.svg";
 import "./styles/Digests.css";
-import Navbar from "../Components/Navbar";
+import { DigestCard, Menu, Navbar } from "../Components/Components";
 
 const Digests = () => {
 	let navigate = useNavigate();

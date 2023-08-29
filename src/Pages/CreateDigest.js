@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
-import Loading from "../Components/Loading";
 import { encodeURL, simpleCrypto, BACKEND_URL } from "../HTTP";
-import SettingsGrid from "../Components/SettingsGrid";
+import { SettingsGrid, Loading } from "../Components/Components";
 import "./styles/DigestSettings.css";
 
 function CreateDigest() {

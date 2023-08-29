@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./styles/Loading.css";
 import { ThreeDots } from "react-loader-spinner";
 
-const Loading = () => {
+export default function Loading() {
 	return (
 		<div className="loading-page">
 			<ThreeDots
@@ -17,6 +17,4 @@ const Loading = () => {
 			/>
 		</div>
 	);
-};
-
-export default Loading;
+}

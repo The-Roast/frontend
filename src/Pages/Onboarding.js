@@ -1,18 +1,58 @@
 import React, { useState } from "react";
-import PresetCard from "../Components/PresetCard";
+import { Loading, PresetCard } from "../Components/Components";
 import "./styles/Onboarding.css";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import { encodeURL, simpleCrypto, BACKEND_URL } from "../HTTP";
 
 function Onboarding() {
 	const navigate = useNavigate();
+	const { state } = useLocation();
+	const { registerBody } = state;
+	const [warningMessage, setWarningMessage] = useState("");
+	const [isWarningMessage, setIsWarningMessage] = useState(false);
+	const [isLoading, setIsLoading] = useState(false);
 
 	// TODO use backend endpoint to get presets
 	const presets = [
 		{
+			name: "Bits and Bytes",
+			interests: ["Technology", "Startups", "Digital Trends", "Innovation"],
+			color: "#7436a2",
+		},
+		{
 			name: "Wall Street Bets",
-			interests: ["Finance", "Stocks", "Market", "Investing"],
+			interests: ["Finance", "Investing", "Stocks", "Markets"],
 			color: "#478d56",
+		},
+		{
+			name: "Outsider’s Insider",
+			interests: [
+				"U.S. Politics",
+				"Global Politics",
+				"Government",
+				"Foreign Affairs",
+			],
+			color: "#c14b1f",
+		},
+		{
+			name: "Arts & Culture",
+			interests: ["Art", "Literature", "Music", "Theater"],
+			color: "#9c27b0",
+		},
+		{
+			name: "Sports",
+			interests: ["Football", "Basketball", "Soccer", "Baseball"],
+			color: "#e91e63",
+		},
+		{
+			name: "True Crime",
+			interests: [
+				"Investigations",
+				"Criminal Psychology",
+				"Cold Cases",
+				"Forensics",
+			],
+			color: "#607d8b",
 		},
 	];
 
@@ -26,36 +66,38 @@ function Onboarding() {
 		"Ernest Hemingway",
 	];
 
-	const handleSubmit = async (event) => {
-		event.preventDefault();
+	const handleSubmit = async (e) => {
+		e.preventDefault();
 
 		// Send the form data to the server for further processing
 		try {
-			// const registerRes = await fetch(`${BACKEND_URL}/auth/register`, {
-			// 	method: "POST",
-			// 	headers: {
-			// 		Accept: "application/json",
-			// 		"Content-Type": "application/json",
-			// 	},
-			// 	body: JSON.stringify(registerBody),
-			// });
+			const registerRes = await fetch(`${BACKEND_URL}/auth/register`, {
+				method: "POST",
+				headers: {
+					Accept: "application/json",
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(registerBody),
+			});
 
-			// const registerData = await registerRes.json();
+			const registerData = await registerRes.json();
 
-			// if (!registerRes.ok) {
-			// 	console.error(registerRes.status);
-			// 	setWarningMessage(registerData.detail);
-			// 	setIsWarningMessage(true);
-			// } else {
-			// 	navigate("/newsletter");
-			// }
-			navigate("/newsletter");
+			if (!registerRes.ok) {
+				console.error(registerRes.status);
+				setWarningMessage(registerData.detail);
+				setIsWarningMessage(true);
+			} else {
+				navigate("/sign-in");
+			}
 		} catch (error) {
+			setIsLoading(false);
 			console.error("Error:", error);
 		}
 	};
 
-	return (
+	return isLoading ? (
+		<Loading />
+	) : (
 		<div className="onboarding">
 			<div className="onboarding-container">
 				<div className="header">
@@ -80,6 +122,14 @@ function Onboarding() {
 							key={index}
 						/>
 					))}
+				</div>
+				{isWarningMessage ? (
+					<div className="warning-message">
+						<p>{warningMessage}</p>
+					</div>
+				) : null}
+				<div className="button-wrapper" style={{ paddingTop: "20px" }}>
+					<button onClick={(e) => handleSubmit(e)}>Submit</button>
 				</div>
 			</div>
 		</div>

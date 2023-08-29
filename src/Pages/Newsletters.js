@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router";
 import { BACKEND_URL, simpleCrypto } from "../HTTP";
-import NewsletterCard from "../Components/NewsletterCard";
-import Menu from "../Components/Menu";
-import Navbar from "../Components/Navbar";
+import { NewsletterCard, Menu, Navbar } from "../Components/Components";
 import PlusIcon from "./images/Plus.svg";
 import "./styles/Newsletters.css";
 

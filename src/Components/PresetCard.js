@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { simpleCrypto, BACKEND_URL } from "../HTTP";
 
-const PresetCard = (data) => {
+export default function PresetCard(data) {
 	let navigate = useNavigate();
 	const digest = data.digest;
 	const personalities = data.personalities;
@@ -59,6 +59,11 @@ const PresetCard = (data) => {
 		}
 	};
 
+	const handlePersonalityChange = async () => {
+		// Handle when the user selects a personality from the dropdown
+		// Handle default as well
+	};
+
 	return (
 		<div
 			className={`preset-digest-card ${isEnabled ? "" : "disabled"}`}
@@ -97,7 +102,12 @@ const PresetCard = (data) => {
 				</div>
 				<div className="preset-digest-row">
 					<p for="personality">Personality:</p>
-					<select id="personality" name="personality">
+					<select
+						id="personality"
+						name="personality"
+						onChange={handlePersonalityChange()}
+					>
+						<option value="default">Select a personality</option>
 						{personalities.map((personality, index) => (
 							<option value={personality}>{personality}</option>
 						))}
@@ -106,6 +116,4 @@ const PresetCard = (data) => {
 			</div>
 		</div>
 	);
-};
-
-export default PresetCard;
+}
