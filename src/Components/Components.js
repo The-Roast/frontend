@@ -7,6 +7,7 @@ import CustomColorPicker from "./CustomColorPicker";
 import DigestCard from "./DigestCard";
 import NewsletterCard from "./NewsletterCard";
 import SettingsGrid from "./SettingsGrid";
+import NewsletterFilter from "./NewsletterFilter";
 export {
 	Loading,
 	PresetCard,
@@ -17,4 +18,5 @@ export {
 	DigestCard,
 	NewsletterCard,
 	SettingsGrid,
+	NewsletterFilter,
 };

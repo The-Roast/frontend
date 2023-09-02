@@ -1,7 +1,8 @@
-import "./styles/Card.css";
+import "./styles/DigestCard.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { simpleCrypto, BACKEND_URL } from "../HTTP";
+import XButton from "../Pages/images/XButton.svg";
 
 const DigestCard = (data) => {
 	let navigate = useNavigate();
@@ -61,7 +62,7 @@ const DigestCard = (data) => {
 		<div
 			className={`digest-card ${isEnabled ? "" : "disabled"}`}
 			style={{
-				backgroundColor: index % 4 === 0 ? "#FCF9E1" : "#F9F9F6",
+				backgroundColor: index % 5 === 0 ? "#FCF9E1" : "#F9F9F6",
 				outlineColor: digest.color,
 			}}
 			onClick={() => isEnabled && handleCardClick()}
@@ -79,12 +80,7 @@ const DigestCard = (data) => {
 							onMouseEnter={() => setIsHovered(true)}
 							onMouseLeave={() => setIsHovered(false)}
 						>
-							{isHovered && (
-								<svg className="x-svg" viewBox="0 0 100 100">
-									<line x1="0" y1="0" x2="100" y2="100" />
-									<line x1="100" y1="0" x2="0" y2="100" />
-								</svg>
-							)}
+							{isHovered ? <img src={XButton} alt="XButton" /> : null}
 						</div>
 					</div>
 				</div>

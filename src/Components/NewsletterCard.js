@@ -1,13 +1,30 @@
 import "./styles/NewsletterCard.css";
-import { useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { simpleCrypto, BACKEND_URL } from "../HTTP";
-import Ticker, { FinancialTicker, NewsTicker } from "nice-react-ticker";
 
 const NewsletterCard = (data) => {
 	const navigate = useNavigate();
 	const newsletter = data.newsletter;
 	const digest = data.digest;
+
+	const index = data.index;
+
+	const [animationProps, setAnimationProps] = useState({});
+	const [isHovered, setIsHovered] = useState(false);
+	const notAnimatedProps = { animationPlayState: "paused" };
+
+	useEffect(() => {
+		const multiplier = Math.round(Math.random()) * 2 - 1;
+		const randomDuration = 5 + Math.random() * 2 * multiplier;
+
+		setAnimationProps({
+			animationName: "ticker-slide",
+			animationDuration: `${randomDuration}s`,
+			animationTimingFunction: "linear",
+			animationIterationCount: "infinite",
+			transform: `translateX(${Math.random() * 200 - 100}%)`,
+		});
+	}, []);
 
 	const handleCardClick = () => {
 		console.log("clicked!");
@@ -16,11 +33,23 @@ const NewsletterCard = (data) => {
 	};
 
 	return (
-		<div className={`newsletter-card`} onClick={() => handleCardClick()}>
+		<div
+			className={`newsletter-card`}
+			style={{ backgroundColor: index % 5 === 0 ? "#FCF9E1" : "#F9F9F6" }}
+			onClick={() => handleCardClick()}
+		>
 			<div className="newsletter-container">
 				<div className="newsletter-header">
-					<div className="newsletter-title-wrapper">
-						<span>{digest.name}</span>
+					<div
+						className={"newsletter-title-wrapper"}
+						style={{
+							...animationProps,
+							...(isHovered ? notAnimatedProps : {}),
+						}}
+						onMouseEnter={() => setIsHovered(true)}
+						onMouseLeave={() => setIsHovered(false)}
+					>
+						{digest.name}
 					</div>
 				</div>
 				<hr />
@@ -38,7 +67,7 @@ const NewsletterCard = (data) => {
 				<div className="newsletter-body">
 					<ul>
 						{newsletter.body.map((data, index) => (
-							<li>
+							<li key={index}>
 								<p>{data.title}</p>
 							</li>
 						))}

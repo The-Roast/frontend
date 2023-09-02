@@ -1,64 +1,43 @@
+.newsletter-card {
+	width: 275px !important;
+	height: 350px;
+	box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+	outline: 2px solid black;
+	outline-offset: -20px;
+	cursor: pointer;
+	position: relative;
+	padding: 20px;
+}
+
 .newsletter-container {
 	display: flex;
-	padding: 20px;
 	padding-top: 0px;
 	flex-direction: column;
-	align-items: flex-start;
+	align-items: stretch;
 	overflow: hidden;
 }
 
 .newsletter-container hr {
 	border: none;
-	height: 3px;
+	height: 2px;
 	width: 100%;
 	background-color: black;
-	margin: 0px -20px;
-	padding: 0px 20px;
-}
-
-.newsletter-info {
-	display: flex;
-	width: 100%;
-	justify-content: space-between;
-	padding: 10px 0px;
-}
-
-.newsletter-info p {
-	font-size: 16px;
-	font-weight: normal;
 	margin: 0px;
 }
 
 .newsletter-header {
-	width: 100%;
+	width: inherit;
 	height: 30px;
-	text-align: justify;
-	margin: 5px 0px;
-	overflow-x: scroll;
-	overflow-y: hidden;
-	text-overflow: ellipsis;
+	margin: 5px -20px 5px -20px;
 	font-family: "GT Alpina Extended";
 	font-weight: lighter;
 	font-size: 35px;
-	display: flex;
-	flex-direction: column;
 	padding-bottom: 10px;
-}
-
-.newsletter-header span {
-	width: 100%;
-	height: 0;
-	display: inline-block;
+	white-space: nowrap;
 }
 
 .newsletter-title-wrapper {
-	display: flex;
-	white-space: nowrap;
-	animation: ticker-slide 5s linear forwards infinite;
-}
-
-.newsletter-title-wrapper:hover {
-	animation-play-state: paused;
+	width: 100%;
 }
 
 @keyframes ticker-slide {
@@ -70,10 +49,23 @@
 	}
 }
 
+.newsletter-info {
+	display: flex;
+	justify-content: space-between;
+	padding: 10px 20px;
+}
+
+.newsletter-info p {
+	font-size: 16px;
+	font-weight: normal;
+	margin: 0px;
+}
+
 .newsletter-title {
 	font-size: 30px;
 	font-weight: 400;
 	margin: 5px 0px;
+	padding: 0px 20px;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	display: -webkit-box;
@@ -86,10 +78,6 @@
 	width: 250px;
 	height: 160px;
 	overflow: hidden;
-}
-
-.newsletter-body li {
-	margin-left: -20px;
 }
 
 .newsletter-body li p {
@@ -106,17 +94,4 @@
 	width: 20px;
 	height: 20px;
 	z-index: 10;
-}
-
-.newsletter-card {
-	width: 300px !important;
-	height: 400px;
-	box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-	outline: 2px solid transparent;
-	outline-offset: -10px;
-	cursor: pointer;
-	position: relative;
-	transition: transform 0.3s ease-in-out;
-	margin: 0 auto;
-	background-color: #fcf9e1;
 }

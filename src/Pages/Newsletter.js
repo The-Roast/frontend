@@ -15,6 +15,18 @@ function Conversation() {
 	const [pageSize, setPageSize] = useState(2600); // Initial page size
 	const [title, setTitle] = useState("");
 	const [chatHistory, setChatHistory] = useState([]);
+	const chatbotResponses = [
+		"I'm glad you're interested in the article! It covers the latest developments in technology and their societal impact.",
+		"Great question! The article delves into sustainable living and how individuals can adopt eco-friendly practices.",
+		"That's an excellent question! The article focuses on the benefits of mindfulness and meditation, providing actionable tips for beginners.",
+		"Absolutely! The article showcases the world of gourmet cooking and even includes a mouthwatering recipe.",
+		"Sure thing! The article discusses the importance of financial planning and provides strategies for achieving long-term financial goals.",
+		"Interesting question! The article features an interview with a local artist, shedding light on their inspiration and creative process.",
+		"I'm glad you're curious! The article offers a review of a captivating sci-fi novel that's been making waves recently.",
+		"Of course! The article explores the health benefits of regular exercise and includes a simple yet effective home workout routine.",
+		"That's a great question! The article interviews a renowned scientist who shares insights into upcoming advancements in space exploration.",
+		"Certainly! The article provides a comprehensive analysis of current economic trends and their potential implications for global markets.",
+	];
 
 	const combineText = (data) => {
 		const introduction = `<p>${data.introduction}</p>`;
@@ -22,7 +34,7 @@ function Conversation() {
 		const bodyTexts = data.body.map(
 			(item) => `<h2>${item.title}</h2>${item.body}`
 		);
-		const conclusion = data.conclusion;
+		const conclusion = `<h2>Conclusion</h2><p>${data.conclusion}</p>`;
 
 		const combinedText = introduction + bodyTexts.join(" ") + conclusion;
 		return combinedText;
@@ -36,7 +48,7 @@ function Conversation() {
 		words.forEach((word) => {
 			let size = pageSize;
 			if (index === 0) {
-				size = 2300;
+				size = 1800;
 			}
 			if ((currentPage + word).length <= size) {
 				currentPage += (currentPage ? " " : "") + word;
@@ -153,33 +165,47 @@ function Conversation() {
 	};
 
 	const handleUserMessage = async (e, text) => {
-		e.preventDefault();
-		console.log("sup!");
-		// const encryptedToken = localStorage.getItem("JWT");
-		// const JWT = simpleCrypto.decrypt(encryptedToken);
-		// const chatBody = { message: text };
-		// const chatRes = await fetch(
-		// 	`${BACKEND_URL}/api/v1/newsletter/${newsletter_uuid}/chat`,
-		// 	{
-		// 		method: "GET",
-		// 		headers: {
-		// 			Accept: "application/json",
-		// 			"Content-Type": "application/json",
-		// 			Authorization: JWT.token_type + " " + JWT.access_token,
-		// 		},
-		// 		body: JSON.stringify(chatBody),
-		// 	}
-		// );
-		// if (!chatRes.ok) {
-		// 	console.error(chatRes.status);
-		// } else {
-		// 	await getChatHistory();
-		// }
+		if (e.key === "Enter") {
+			const randomResponse =
+				chatbotResponses[Math.floor(Math.random() * chatbotResponses.length)];
+
+			const newMessage = { content: text, type: "user" };
+			const newResponse = { content: randomResponse, type: "assistant" };
+
+			setChatHistory((prevHistory) => [
+				...prevHistory,
+				newMessage,
+				newResponse,
+			]);
+
+			e.target.value = "";
+
+			// const encryptedToken = localStorage.getItem("JWT");
+			// const JWT = simpleCrypto.decrypt(encryptedToken);
+			// const chatBody = { message: text };
+			// const chatRes = await fetch(
+			// 	`${BACKEND_URL}/api/v1/newsletter/${newsletter_uuid}/chat`,
+			// 	{
+			// 		method: "GET",
+			// 		headers: {
+			// 			Accept: "application/json",
+			// 			"Content-Type": "application/json",
+			// 			Authorization: JWT.token_type + " " + JWT.access_token,
+			// 		},
+			// 		body: JSON.stringify(chatBody),
+			// 	}
+			// );
+			// if (!chatRes.ok) {
+			// 	console.error(chatRes.status);
+			// } else {
+			// 	await getChatHistory();
+			// }
+		}
 	};
 
 	return (
 		<div>
-			<Menu />
+			{state === null ? null : <Menu />}
 			<div className="newsletter">
 				<div className="left-view">
 					{/* <div className="tts-wrapper">
@@ -211,17 +237,19 @@ function Conversation() {
 				<div className="right-view">
 					<div className="notepad">
 						<div className="chat-messages">
-							{chatHistory.map((chatMessage) => {
-								<div className={`${chatMessage.type} message`}>
-									chatMessage.content
-								</div>;
-							})}
+							{chatHistory.map((chatMessage, index) => (
+								<div key={index} className={`${chatMessage.type} message`}>
+									{chatMessage.content}
+								</div>
+							))}
 						</div>
 						<input
-							type="text"
 							className="message-input"
+							type="text"
 							placeholder="Type your message..."
-							onSubmit={handleUserMessage}
+							onKeyDown={(e) => {
+								handleUserMessage(e, e.target.value);
+							}}
 						/>
 					</div>
 				</div>

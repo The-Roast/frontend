@@ -1,6 +1,5 @@
 import React from "react";
-import { SliderPicker } from "react-color";
-import CustomColorPicker from "./CustomColorPicker";
+import { CustomColorPicker } from "./Components";
 import "./styles/SettingsGrid.css";
 
 const SettingsGrid = ({ data }) => {
@@ -21,12 +20,6 @@ const SettingsGrid = ({ data }) => {
 						<td>
 							{item.preference === "Color" ? (
 								<div className="color-picker">
-									{/* <input
-										type="text"
-										value={item.value}
-										onChange={item.onChange}
-										className="color-info"
-									/> */}
 									<CustomColorPicker
 										currentColor={item.value}
 										onChange={item.onChange}

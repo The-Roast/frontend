@@ -1,19 +1,52 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router";
 import { BACKEND_URL, simpleCrypto } from "../HTTP";
-import { NewsletterCard, Menu, Navbar } from "../Components/Components";
-import PlusIcon from "./images/Plus.svg";
+import {
+	NewsletterCard,
+	Menu,
+	Navbar,
+	NewsletterFilter,
+} from "../Components/Components";
 import "./styles/Newsletters.css";
 
 const Newsletters = () => {
 	const [newsletters, setNewsletters] = useState([]);
+	const [showFilters, setShowFilters] = useState(false);
+	const [orderByDate, setOrderByDate] = useState(true);
+	const [orderByUsage, setOrderByUsage] = useState(false);
+
+	const handleOrderByDateChange = () => {
+		setOrderByDate(!orderByDate);
+		setOrderByUsage(false);
+		setNewsletters([]);
+		getNewsletters();
+	};
+
+	const handleOrderByUsageChange = () => {
+		setOrderByUsage(!orderByUsage);
+		setOrderByDate(false);
+		setNewsletters([]);
+		getNewsletters();
+	};
+
+	const filterData = [
+		{
+			value: orderByDate,
+			onChange: handleOrderByDateChange,
+			label: "Order by date",
+		},
+		{
+			value: orderByUsage,
+			onChange: handleOrderByUsageChange,
+			label: "Order by usage",
+		},
+	];
 
 	let location = useLocation();
 
 	useEffect(() => {
 		setNewsletters([]);
 		getNewsletters();
-		console.log("hi!");
 	}, [location]);
 
 	const getDigest = async (digest_uuid) => {
@@ -49,8 +82,13 @@ const Newsletters = () => {
 		const JWT = simpleCrypto.decrypt(encryptedObject);
 
 		try {
+			// const newsletterBody = { order: orderByDate ? "date" : "usage" };
+			const filter = `?order_by=${
+				orderByDate ? "date" : "usage"
+			}&skip=0&limit=0`;
+
 			const newsletterRes = await fetch(
-				`${BACKEND_URL}/api/v1/newsletter/all/`,
+				`${BACKEND_URL}/api/v1/newsletter/all/${filter}`,
 				{
 					method: "get",
 					headers: {
@@ -85,12 +123,14 @@ const Newsletters = () => {
 					<h1>Newsletters</h1>
 				</div>
 				<Navbar />
+				<NewsletterFilter data={filterData} />
 				<div className="newsletters-grid">
 					{newsletters.map((data, index) => (
 						<NewsletterCard
 							newsletter={data.newsletter}
 							digest={data.digest}
 							key={index}
+							index={index}
 						/>
 					))}
 				</div>

@@ -18,6 +18,7 @@ function CreateDigest() {
 	};
 
 	const handleColorChange = (color) => {
+		console.log(color);
 		setColor(color);
 	};
 

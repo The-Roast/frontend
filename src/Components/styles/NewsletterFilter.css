@@ -1,0 +1,105 @@
+.filter-dropdown {
+	display: flex;
+	justify-content: flex-start;
+	width: -webkit-fill-available;
+	margin: 0px -3px;
+}
+
+.filter-dropdown img {
+	border-radius: 50%;
+	border: 3px solid black;
+	padding: 10px;
+	background-color: white;
+	box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.filter-dropdown .dropdown {
+	position: sticky;
+	margin: 0px 0px 0px 10px;
+	padding: 10px 20px 10px 10px;
+	background-color: white;
+	z-index: 11;
+	width: 100%;
+	box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-evenly;
+	gap: 20px;
+	border: 3px solid black;
+}
+
+.filter-dropdown .dropdown .dropdown-field {
+	display: flex;
+	justify-content: space-between;
+}
+
+.filter-dropdown .dropdown input[type="number"] {
+	width: 40px;
+	margin-left: 20px;
+}
+
+.filter-dropdown .dropdown input[type="checkbox"] {
+	margin-right: 10px;
+	background-color: red;
+}
+
+.filter-dropdown .dropdown label {
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	font-family: "GT Alpina";
+	font-size: 20px;
+}
+
+.filter-dropdown button {
+	background-color: transparent;
+	border: none;
+	outline: none;
+	padding: 0;
+}
+
+.filter-dropdown img {
+	width: 30px;
+	height: auto;
+	cursor: pointer;
+}
+
+.custom-checkbox {
+	display: flex;
+	align-items: center;
+	cursor: pointer;
+}
+
+.checkbox-icon {
+	width: 18px;
+	height: 18px;
+	border: 2px solid black;
+	border-radius: 50%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-right: 10px;
+	position: relative;
+}
+
+.checked .checkbox-icon {
+	background-color: black;
+}
+
+.checkmark {
+	width: 6px;
+	height: 6px;
+	background-color: white;
+	border-radius: 50%;
+	display: block;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	opacity: 0;
+}
+
+.checked .checkmark {
+	opacity: 1;
+}

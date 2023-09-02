@@ -104,8 +104,10 @@ function Signin() {
 								onChange={handleEmailChange}
 								ref={emailInput}
 								required
+								autoComplete="off"
 							/>
 						</div>
+
 						<div className="input-container">
 							<p>Password:</p>
 							<input

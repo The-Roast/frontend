@@ -68,7 +68,7 @@ export default function PresetCard(data) {
 		<div
 			className={`preset-digest-card ${isEnabled ? "" : "disabled"}`}
 			style={{
-				backgroundColor: index % 4 === 0 ? "#FCF9E1" : "#F9F9F6",
+				backgroundColor: index % 5 === 0 ? "#FCF9E1" : "#F9F9F6",
 				outlineColor: digest.color,
 				minHeight: "auto",
 			}}

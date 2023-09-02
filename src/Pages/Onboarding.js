@@ -103,6 +103,9 @@ function Onboarding() {
 				<div className="header">
 					<h1>Onboarding</h1>
 				</div>
+				<div className="header">
+					<h1>Standard</h1>
+				</div>
 				<div className="newsletter-grid">
 					{presets.map((data, index) => (
 						<PresetCard
@@ -112,6 +115,9 @@ function Onboarding() {
 							key={index}
 						/>
 					))}
+				</div>
+				<div className="header">
+					<h1>Experimental</h1>
 				</div>
 				<div className="newsletter-grid">
 					{presets.map((data, index) => (
@@ -128,6 +134,7 @@ function Onboarding() {
 						<p>{warningMessage}</p>
 					</div>
 				) : null}
+
 				<div className="button-wrapper" style={{ paddingTop: "20px" }}>
 					<button onClick={(e) => handleSubmit(e)}>Submit</button>
 				</div>

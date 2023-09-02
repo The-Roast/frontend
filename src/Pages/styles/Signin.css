@@ -46,15 +46,6 @@
 	font-size: 20px;
 	border-bottom: 1px solid black;
 }
-
-.signin-form input:-webkit-autofill,
-.signin-form input:-webkit-autofill:hover,
-.signin-form input:-webkit-autofill:focus,
-.signin-form input:-webkit-autofill:active {
-	font-family: "GT Alpina";
-	transition: background-color 0s 600000s, color 0s 600000s;
-}
-
 .signin-form input[type="submit"] {
 	border: 2px solid black;
 	color: black;
